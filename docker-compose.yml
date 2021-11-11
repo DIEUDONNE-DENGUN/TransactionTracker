@@ -1,0 +1,62 @@
+version: '3.7'
+
+# Define all application level services
+services:
+  # restful Api backend service
+  restful-api-server:
+    # Configuration for building the docker image for the restful backend service
+    build:
+      context: TransactionTrackingApi # Use an image built from the specified dockerfile in the TransactionTrackerApi directory.
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8083" # Forward the exposed port 8083 on the container to port 8083 on the host machine
+    restart: always
+    depends_on:
+      - mysql-db # This service should only start when the mysql database service is running
+    environment:
+
+      IOTA_DB_USER: IotaTracker
+      IOTA_DB_PWD: trackerapp
+      IOTA_DB_HOST: mysql-db
+      IOTA_DB_PORT: 3306
+      IOTA_DB_NAME: transactionTracker
+      IOTA_API_KEY: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCBg1rhdT+qbLPcOoRKGCW6gw
+      IOTA_API_HOST: http://localhost:8083
+      IOTA_SERVER_PORT: 8083
+      SPRING_PROFILES_ACTIVE: "prod"
+
+    networks: # Networks to join (Services on the same network can communicate with each other using their name)
+      - backend
+      - frontend
+
+  # Frontend Service
+  web-app-client:
+    build:
+      context: TransactionTrackingWeb
+      dockerfile: Dockerfile # Use an image built from the specified dockerfile in the TransactionTrackingWeb directory.
+    ports:
+      - "8081:80" # Map the exposed port 80 on the container to port 8081 on the host machine
+    restart: always
+    depends_on:
+      - restful-api-server
+    networks:
+      - frontend
+
+  # Database Service (Mysql)
+  mysql-db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_DATABASE: transactionTracker
+      MYSQL_USER: IotaTracker
+      MYSQL_PASSWORD: trackerapp
+      MYSQL_ROOT_PASSWORD: trackerapp
+    networks:
+      - backend
+
+# Networks to be created to ensure communication between containers
+networks:
+  backend:
+  frontend:

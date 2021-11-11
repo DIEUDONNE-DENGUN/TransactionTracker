@@ -1,0 +1,56 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+  overflow-x: none;
+  box-sizing: border-box;
+  overflow-y: none;
+}
+
+.body {
+  background-color: #f2f2f2;
+  max-width: 98.6vw;
+}
+
+.app-background {
+  background-color: #f2f2f2;
+}
+
+.logo {
+  max-height: 8vh;
+}
+
+.tracker-round {
+  border-radius: 1.5em;
+  // box-shadow:0 0.5rem 1rem rgba(0,0,0,.175)!important
+}
+
+.tracker-round-lg {
+  border-radius: 1em;
+  // box-shadow:0 0.5rem 1rem rgba(0,0,0,.175)!important
+}
+
+.tracker-color {
+  background-color: #448AFF !important;
+  padding: 2px;
+}
+
+.tracker-input {
+  border-radius: 2.5em !important;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.175) !important;
+}
+
+.tracker-card-rounded {
+  padding: 1rem;
+  background-color: #ffffff;
+  box-shadow: 2rem 2rem 2rem 2rem rgb(0 0 0 / 18%) !important;
+  border-radius: 2.5em;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  line-height: 20px;
+  font-weight: 400;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.08);
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

@@ -1,0 +1,39 @@
+<div class="container-fluid bg-light">
+  <app-search-transaction-form (searchTransaction)="searchTransactionByIdOrValue($event)"></app-search-transaction-form>
+  <div *ngIf="isSpinnerLoading" class="text-center ml-4 row">
+    <app-spinner class="col-md-12"></app-spinner>
+  </div>
+  <div class="row mb-3 mt-2 alert alert-danger" role="alert"
+       *ngIf="hasNoSearchResult">
+    Currently there are no transactions which match your search query. Kindly try another with a valid value or
+    transaction id
+  </div>
+  <div class="row" *ngIf="searchResultFlag">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 alert alert-primary text-center text-black-50 font-weight-bold">
+      There are {{transactionCollection.transactionResource.length}} transaction result(s) for your search
+      query: {{searchQuery}}
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+  <div class="row" *ngIf="transactionCollection">
+    <div [ngClass]="{ '': transactionDetails, 'col-md-2': !transactionDetails }"></div>
+    <div [ngClass]="{ 'col-md-8': !transactionDetails, 'col-md-6': transactionDetails }">
+      <div *ngIf="transactionCollection.transactionResource.length >0">
+        <div class="mb-3 mt-2" *ngFor="let transaction of transactionCollection.transactionResource">
+          <app-transaction (click)="getTransactionById(transaction.transactionId)"
+                           [transaction]="transaction"></app-transaction>
+        </div>
+        <div class="mb-3 mt-2 alert alert-danger" role="alert"
+             *ngIf="transactionCollection.transactionResource.length===0">
+          Currently there are no transactions yet. Scheduler will generate some in some minutes
+        </div>
+      </div>
+    </div>
+    <div [ngClass]="{ 'col-md-2': !transactionDetails, '': transactionDetails }"></div>
+    <div [ngClass]="{ 'd-none': !transactionDetails, 'col-md-6': transactionDetails }">
+      <app-transaction-detail [transaction]="transactionDetails"></app-transaction-detail>
+    </div>
+  </div>
+
+</div>

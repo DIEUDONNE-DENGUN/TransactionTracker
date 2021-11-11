@@ -1,0 +1,22 @@
+<div class="bg-white transaction-container shadow rounded-lg pl-n-2 ml-n-3">
+  <div class="mb-1 p-1">
+    <h5 style="font-size: 14px;" class="font-weight-bold text-black-50 text-capitalize p-2 text-center">
+      <span style="font-weight:lighter; margin-left:-15px">Transaction Identifier: </span>&nbsp;&nbsp;&nbsp;<span
+      style="font-size:12px"><b>{{transaction.transactionId}}</b></span>
+    </h5>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-4">
+        <p class="text-black-50">Sender: <span
+          style="font-weight:bold">{{transaction.transactionSender| lowercase|titlecase }}</span></p>
+      </div>
+      <div class="col-md-4">
+        <p class="text-black-50">Receiver: <span
+          style="font-weight:bold">{{transaction.transactionReceiver| lowercase|titlecase }}</span></p>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+  </div>
+  <div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="row mb-3 p-2 mt-3">
+  <div class="col-md-1"></div>
+  <div
+    class="col-md-10 bg-white shadow-lg tracker-round-lg"
+    style="
+    position: relative;
+    box-shadow: 2rem 3rem 3rem rgba(0, 0, 0, 0.175) !important;"
+  >
+    <div class="alert alert-danger text-center" *ngIf="hasError">
+      Kindly enter a transaction identifier or value to search for available transactions
+    </div>
+    <div class="row mt-3 pt-2 text-center">
+      <div class="col-md-1"></div>
+      <div class="col-md-8 form-group">
+        <input (change)="handleInputChange($event)" placeholder="Search transaction by ID or Value" name="sender"
+               type="text" class="form-control tracker-input"/>
+      </div>
+      <div class="col-md-3">
+        <button [disabled]="isSearching" type="button" class="btn btn-primary rounded-lg btn-block shadow-lg"
+                (click)="handleSearchTransaction()">
+          Search Transaction
+        </button>
+      </div>
+    </div>
+    <br/>
+  </div>
+  <div class="col-md-1"></div>
+</div>

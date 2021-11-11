@@ -1,0 +1,14 @@
+.transaction-detail {
+  padding: 1rem;
+  border-radius: 2.5rem !important;
+  box-shadow: 1rem 1rem 1rem 1rem rgb(0 0 0 / 10%) !important;
+  line-height: 20px;
+  font-weight: 400;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+.row-separator {
+  margin-top: .75rem;
+  margin-bottom: .75rem;
+  opacity: .75;
+}

@@ -1,0 +1,117 @@
+<div class="bg-white transaction-detail shadow rounded-lg ml-4 mt-3 mb-3 pl-3 pt-3 pb-3" *ngIf="transaction">
+  <div class="container">
+    <h4 class="text-black-50 text-left mb-1 pb-1">Transaction Details</h4><br/>
+    <hr class="row-separator"/>
+    <div class="row">
+      <div class="col-md-4 font-weight-bold">Transaction ID:</div>
+      <div class="col-md-8 text-black-50 font-weight-bold" style="font-size:12px">{{transaction.transactionId}}</div>
+    </div>
+    <hr class="row-separator"/>
+    <div class="row">
+      <div class="col-md-4  font-weight-bold">Sender:</div>
+      <div class="col-md-8  text-black-50 font-weight-bold" style="font-size:12px">
+        {{transaction.transactionSender}}
+      </div>
+    </div>
+    <hr class="row-separator"/>
+    <div class="row">
+      <div class="col-md-4  font-weight-bold">Receiver:</div>
+      <div class="col-md-8  text-black-50 font-weight-bold" style="font-size:12px">
+        {{transaction.transactionReceiver}}
+      </div>
+    </div>
+    <hr class="row-separator"/>
+    <div class="row">
+      <div class="col-md-4  font-weight-bold">Value:</div>
+      <div class="col-md-8  text-black-50 font-weight-bold" style="font-size:12px">
+        {{transaction.transactionValue}} IOTA
+      </div>
+    </div>
+    <hr class="row-separator"/>
+    <div class="row">
+      <div class="col-md-4  font-weight-bold">Timestamp:</div>
+      <div class="col-md-8  text-black-50 font-weight-bold" style="font-size:12px">
+        {{transaction.transactionDate}}
+      </div>
+    </div>
+    <hr class="row-separator"/>
+    <div class="row">
+      <div class="col-md-4  font-weight-bold">Status:</div>
+      <div class="col-md-8  text-black-50 font-weight-bold">
+        <span *ngIf="transaction.transactionStatus" class="text-success">Confirmed</span>
+        <span *ngIf="!transaction.transactionStatus" class="text-danger">UnConfirmed</span>
+      </div>
+    </div>
+    <hr class="row-separator"/>
+    <div class="clearfix"><br/></div>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8  font-weight-bold">
+        <button (click)="showUpdateForm()" type="button" class="btn btn-primary rounded-lg shadow">Update Transaction
+        </button>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+  </div>
+</div>
+<!-- Edit transaction form -->
+<div *ngIf="transaction" class="modal fade " id="transaction-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content m-1- p-2">
+      <div *ngIf="isSpinnerLoading" class="text-center ml-4 row">
+        <app-spinner class="col-md-12"></app-spinner>
+      </div>
+      <div class="modal-body">
+        <h4 class="text-black-50 font-weight-bold mb-3 pb-3">Update Transaction Details</h4>
+        <div class="mb-3 alert alert-danger" role="alert" *ngIf="hasError">
+          Kindly fill all required fields to save changes or you probably not made any change to the current values
+        </div>
+        <div class="mb-3 alert alert-danger" role="alert" *ngIf="apiError">
+          Whoops! An error occurred while trying to save your changes. Please try again or refresh if persist
+        </div>
+        <div class="mb-3 alert alert-success" role="alert" *ngIf="apiSuccess">
+          Beautiful! Transaction detail updated successfully
+        </div>
+        <div class="mb-3">
+          <div class="form-group">
+            <label for="sender" class="form-label">Sender</label>
+            <input (change)="handleInputChange($event)" id="sender" type="text" name="sender"
+                   class="form-control tracker-input" value="{{transaction.transactionSender}}" required/>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="form-group">
+            <label for="receiver" class="form-label">Receiver</label>
+            <input (change)="handleInputChange($event)" id="receiver" type="text" name="receiver"
+                   class="form-control tracker-input" value="{{transaction.transactionReceiver}}" required/>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="form-group">
+            <label for="value" class="form-label">Value</label>
+            <input (change)="handleInputChange($event)" id="value" type="number" name="value"
+                   class="form-control tracker-input" value="{{transaction.transactionValue}}" required/>
+          </div>
+        </div>
+        <div class="mb-3 ml-4">
+          <div class="form-group">
+            <input (change)="handleInputChange($event)" *ngIf="transaction.transactionStatus" name="status"
+                   class="form-check-input" type="checkbox" value="" id="status" checked>
+            <input (change)="handleInputChange($event)" *ngIf="!transaction.transactionStatus" name="status"
+                   class="form-check-input" type="checkbox" value="" id="status">
+            <label for="status" class="form-check-label">Confirmation Status</label>
+          </div>
+        </div>
+        <div class="mb-1 ml-4 mt-3 pt-3">
+          <div class="form-group">
+            <button type="button" (click)="updateTransaction()" class="btn  rounded-lg shadow-lg btn-primary">Save
+              Changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
